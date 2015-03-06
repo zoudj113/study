@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Form - jQuery EasyUI Demo</title>
+    <link rel="stylesheet" type="text/css" href="${root_path}/css/easyui.css">
+    <link rel="stylesheet" type="text/css" href="${root_path}/css/icon.css">
+    <script type="text/javascript" src="${root_path}/js/jquery.min.js"></script>
+    <script type="text/javascript" src="${root_path}/js/jquery.easyui.min.js"></script>
+</head>
+<body>
+    <div style="margin:20px 0;"></div>
+    <table id="options	" class="easyui-datagrid" title="Task List" style="width:1100px;height:380px"
+            data-options="rownumbers:true,singleSelect:true,pagination:true,url:'getTask',method:'get',toolbar:'#tb',footer:'#ft'">
+        <thead>
+            <tr>
+                <th data-options="field:'DEAL_TASK_ID',width:180,align:'center'">DEAL_TASK_ID</th>
+                <th data-options="field:'TASK_ID',width:180,align:'center'">TASK_ID</th>
+                <th data-options="field:'WORKFLOW_ID',width:160,align:'center'">WORKFLOW_ID</th>
+                <th data-options="field:'QUEUE_ID',width:60,align:'center'">QUEUE_ID</th>
+                <th data-options="field:'DEAL_TYPE',width:100,align:'center'">DEAL_TYPE</th>
+                <th data-options="field:'RUNTIME',width:140,align:'center'">RUNTIME</th>
+                <th data-options="field:'STATE',width:60,align:'center'">STATE</th>
+                <th data-options="field:'CREATE_DATE',width:140,align:'center'">CREATE_DATE</th>
+                <!--
+                <th data-options="field:'DEV_ID',width:60,align:'center'">DEV_ID</th>
+                <th data-options="field:'ERROR_MESSAGE',width:60,align:'center'">ERROR_MESSAGE</th>
+                <th data-options="field:'REGION_ID',width:60,align:'center'">REGION_ID</th>
+            --></tr>
+        </thead>
+    </table>
+    <div id="tb" style="padding:2px 5px;">
+        TASK ID: <input id="taskId" class="textbox-text validatebox-text textbox-prompt  tooltip-f" style="width:200px">
+        <!--
+        Language: 
+        <select class="easyui-combobox" panelHeight="auto" style="width:100px">
+            <option value="java">Java</option>
+            <option value="c">C</option>
+            <option value="basic">Basic</option>
+            <option value="perl">Perl</option>
+            <option value="python">Python</option>
+        </select>
+        -->
+        <a href="javascript:reloadgrid();" class="easyui-linkbutton" iconCls="icon-search">Search</a>
+    </div><!--
+    <div id="ft" style="padding:2px 5px;">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"></a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true"></a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true"></a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true"></a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true"></a>
+    </div>
+-->
+
+ <div id="dlg" class="easyui-dialog" title="TaskInfo" data-options="iconCls:'icon-save'" style="width:400px;height:200px;padding:10px;">
+        <form id="ff" method="post">
+            <table cellpadding="5">
+             	<tr>
+                    <td>DealTaskId:</td>
+                    <td><input class="" id="dealTaskId" style="width:200px;" readonly="readonly" disabled="true" type="text" name="dealTaskId" id="taskId"></input></td>
+                </tr>
+                <tr>
+                    <td>TaskId:</td>
+                    <td><input class="" id="newTaskId" style="width:200px;" readonly="readonly" disabled="true" type="text"  name="taskId" id="taskId"></input></td>
+                </tr>
+                <tr>
+                    <td>WorkFlowId:</td>
+                    <td><input class="" id="workFlowId" style="width:200px;" readonly="readonly" disabled="true" type="text" name="workFlowId" ></input></td>
+                </tr>
+                <tr>
+                    <td>runtime:</td>
+                    <td><input class="" id="runtime" style="width:200px;" readonly="readonly" disabled="true" type="text" name="runtime"></input></td>
+                </tr>
+               
+            </table><!--
+              <div style="text-align:center;padding:5px">
+            	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">Submit</a>
+            	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">Clear</a>
+       		 </div>
+        --></form>
+    </div>
+ </div>
+<script type="text/javascript">
+$(function(){
+	 $('#dlg').dialog('close');
+});
+
+var rootPath = "${root_path}";
+
+function getQueryParams(queryParams) {  
+    var taskId = $("#taskId").val();
+    queryParams.taskId = taskId;  
+    return queryParams;  
+  
+}  
+   //增加查询参数，重新加载表格  
+   function reloadgrid() {
+		var taskId = $('#taskId').val();
+		
+		if(taskId == null || taskId == ''){
+			alert('please input taskId!');
+			return ;
+		}
+		$.ajax({
+			url : rootPath + '/' + 'getOneTask',
+			dataType : 'json',
+			type : 'post',
+			data : {
+				'taskId' : taskId
+			},
+			success : function(data){
+				if(data.flag == '0'){
+					var task = data.task;
+					var dealTaskId = task.DEAL_TASK_ID;
+					var taskId = task.TASK_ID;
+					var workFlowId = task.WORKFLOW_ID;
+					var runtime = task.RUNTIME;
+					$('#dealTaskId').val(dealTaskId);
+					$('#newTaskId').val(taskId);
+					$('#workFlowId').val(workFlowId);
+					$('#runtime').val(runtime);
+					$('#dlg').dialog('open');
+				}else{
+					alert(data.msg);
+				}
+			},
+			error : function(e){
+
+			}
+		});
+	   
+	   
+   }  
+</script>
+</body>
+</html>

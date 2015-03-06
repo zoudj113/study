@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Form - jQuery EasyUI Demo</title>
+    <link rel="stylesheet" type="text/css" href="${root_path}/css/easyui.css">
+    <link rel="stylesheet" type="text/css" href="${root_path}/css/icon.css">
+    <script type="text/javascript" src="${root_path}/js/jquery.min.js"></script>
+    <script type="text/javascript" src="${root_path}/js/jquery.easyui.min.js"></script>
+</head>
+<body>
+    <div style="margin:20px 0;"></div>
+    <table class="easyui-datagrid" title="Task List" style="width:1100px;height:380px"
+            data-options="rownumbers:true,singleSelect:true,pagination:true,url:'getCustOrder',method:'get',toolbar:'#tb',footer:'#ft'">
+        <thead>
+            <tr>
+                <th data-options="field:'SRV_ATTR_ORDER_ID',width:180,align:'center'">SRV_ATTR_ORDER_ID</th>
+                <th data-options="field:'SRV_ATTR_INST_ID',width:180,align:'center'">SRV_ATTR_INST_ID</th>
+                <th data-options="field:'CUSTOMER_ORDER_ID',width:160,align:'center'">CUSTOMER_ORDER_ID</th>
+                <th data-options="field:'OFFER_ORDER_ID',width:60,align:'center'">OFFER_ORDER_ID</th>
+                <th data-options="field:'USER_ORDER_ID',width:100,align:'center'">USER_ORDER_ID</th>
+                <th data-options="field:'PROD_ORDER_ID',width:140,align:'center'">PROD_ORDER_ID</th>
+                <th data-options="field:'PROD_SRV_ORDER_ID',width:60,align:'center'">PROD_SRV_ORDER_ID</th>
+                <th data-options="field:'USER_ID',width:140,align:'center'">USER_ID</th>
+                <!--
+                <th data-options="field:'DEV_ID',width:60,align:'center'">DEV_ID</th>
+                <th data-options="field:'ERROR_MESSAGE',width:60,align:'center'">ERROR_MESSAGE</th>
+                <th data-options="field:'REGION_ID',width:60,align:'center'">REGION_ID</th>
+            --></tr>
+        </thead>
+    </table>
+    <!--
+    <div id="tb" style="padding:2px 5px;">
+        Date From: <input class="easyui-datebox" style="width:110px">
+        To: <input class="easyui-datebox" style="width:110px">
+        Language: 
+        <select class="easyui-combobox" panelHeight="auto" style="width:100px">
+            <option value="java">Java</option>
+            <option value="c">C</option>
+            <option value="basic">Basic</option>
+            <option value="perl">Perl</option>
+            <option value="python">Python</option>
+        </select>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-search">Search</a>
+    </div>-->
+    <!--
+    <div id="ft" style="padding:2px 5px;">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"></a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true"></a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true"></a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true"></a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true"></a>
+    </div>
+--></body>
+</html>
